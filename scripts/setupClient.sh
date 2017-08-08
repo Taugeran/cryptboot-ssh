@@ -39,13 +39,16 @@ ssh-keygen -t rsa -f /etc/initramfs-tools/root/.ssh/unlock_rsa -N ''
 cp client/ssh-client /etc/initramfs-tools/hooks/
 cp client/unlock-keys /etc/initramfs-tools/hooks/unlock-keys
 # Installing cryptsetup keyscript
-cp client/get_key_ssh /lib/cryptsetup/scripts/get_key_ssh 
+cp client/get_key_ssh /lib/cryptsetup/scripts/get_key_ssh
 # Mark scripts as executable
 chmod +x /etc/initramfs-tools/hooks/ssh-client
 chmod +x /etc/initramfs-tools/hooks/unlock-keys
-chmod a+x /lib/cryptsetup/scripts/get_key_ssh 
+chmod a+x /lib/cryptsetup/scripts/get_key_ssh
 # Adjust ip address.
 sed -i "s/KEYHOST_ADDRESS/$keyHost/g" /lib/cryptsetup/scripts/get_key_ssh
+
+#Adjust interface used for MAC authentication.
+sed -i "s/PLACEHOLDER_FOR_INTERFACE/$IF/g" /lib/cryptsetup/scripts/get_key_ssh
 # Create and mount tmpfs (to not leave traces on any filesystem).
 mkdir tmp-mount && mount -t tmpfs none ./tmp-mount
 # Waiting for user to authorize the new RSA key
