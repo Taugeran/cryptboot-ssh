@@ -1,5 +1,5 @@
 #!/bin/sh
 sleep 5
-$IFACE=PLACEHOLDER_FOR_INTERFACE
+IFACE=PLACEHOLDER_FOR_INTERFACE
 mac="$(cat /sys/class/net/$IFACE/address)"
 ssh -i /root/.ssh/unlock_rsa -o "UserKnownHostsFile=/root/.ssh/known_hosts ConnectTimeout=100" KEYHOST_ADDRESS "$mac"
